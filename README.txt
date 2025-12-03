@@ -20,7 +20,7 @@ Both models are trained, evaluated, and saved for grading and testing.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 HW4/
 │
@@ -58,7 +58,7 @@ HW4/
 
 ---
 
-## 🧠 Model Summaries
+## Model Summaries
 
 ### **LeNet1 (Original Architecture)**
 Implements the exact LeNet-5 structure:
@@ -89,7 +89,7 @@ This model is more robust to unseen geometric distortions, as required by Proble
 
 ---
 
-## 🔧 How to Run the Code
+## How to Run 
 
 ### **1. Train LeNet1 (original architecture)**  
 ```bash

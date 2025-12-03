@@ -3,7 +3,7 @@ import os
 import numpy as np
 from PIL import Image
 
-DIGIT_ROOT = "./data/digits_updated"  # change if your folder name is different
+DIGIT_ROOT = "./data/digits_updated" 
 
 def build_digit_prototypes_from_digit(
     root: str = DIGIT_ROOT,

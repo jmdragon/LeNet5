@@ -3,10 +3,9 @@ import numpy as np
 import pandas as pd
 from PIL import Image
 
-# Where to save processed data
 OUT_ROOT = "./data"
 
-# Hugging Face parquet paths (already in your file)
+# Hugging Face parquet paths
 splits = {
     "train": "mnist/train-00000-of-00001.parquet",
     "test": "mnist/test-00000-of-00001.parquet",
@@ -41,15 +40,14 @@ def save_split(df: pd.DataFrame, split: str, max_count: int = 10000):
     os.makedirs(out_dir, exist_ok=True)
 
     with open(label_path, "w") as lf:
-        # use a simple local index 0..max_count-1 so filenames match mnist.py
         for local_idx, (_, row) in enumerate(df.iloc[:max_count].iterrows()):
-            # ----- label -----
+            # label
             label = int(row["label"])
             lf.write(f"{label}\n")
 
             img = row["image"]
 
-            # ---- decode the image ----
+            # decode the image 
             if isinstance(img, Image.Image):
                 # already a PIL image
                 pil_img = img.convert("L")
@@ -71,7 +69,7 @@ def save_split(df: pd.DataFrame, split: str, max_count: int = 10000):
                     raise TypeError(f"Unsupported image dict keys: {img.keys()}")
 
             else:
-                # maybe it's already an array or list
+                # maybe it's already an array or list? just in case i think
                 arr = np.array(img, dtype=np.uint8)
                 arr = arr.reshape(28, 28)
                 pil_img = Image.fromarray(arr, mode="L")

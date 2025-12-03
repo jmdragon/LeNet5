@@ -1,10 +1,9 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-data = np.load("lenet2_errors.npz")
+data = np.load("results/lenet2_errors.npz")
 train_err = data["train_err"]
 test_err = data["test_err"]
-
 epochs = np.arange(1, len(train_err) + 1)
 
 plt.figure()

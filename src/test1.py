@@ -12,7 +12,7 @@ def test(dataloader, model):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model.to(device)
 
-    sum_correct = 0   # <-- IMPORTANT: initialize before the loop
+    sum_correct = 0  
     total = 0
 
     with torch.no_grad():
@@ -21,8 +21,8 @@ def test(dataloader, model):
             label = label.to(device)
 
             # model outputs RBF penalties: smaller = better
-            outputs = model(image)                # shape (1, 10)
-            preds = torch.argmin(outputs, dim=1)  # shape (1,)
+            outputs = model(image)                
+            preds = torch.argmin(outputs, dim=1)  
 
             sum_correct += (preds == label).sum().item()
             total += label.size(0)

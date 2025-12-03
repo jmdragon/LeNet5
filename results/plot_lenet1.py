@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-data = np.load("lenet1_errors.npz")
+data = np.load("results/lenet1_errors.npz")
 train_err = data["train_err"]
 test_err = data["test_err"]
 

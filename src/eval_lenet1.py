@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader
 import torchvision
 
 import mnist
-from lenet1 import LeNet5RBF  # needed so torch.load can unpickle
+from lenet1 import LeNet5RBF  
 from prototypes_from_digit import build_digit_prototypes_from_digit
 
 
@@ -17,7 +17,6 @@ def main():
     mnist_test = mnist.MNIST(split="test", transform=pad)
     test_loader = DataLoader(mnist_test, batch_size=1, shuffle=False)
 
-    # Load model (PyTorch 2.6+)
     model = torch.load("LeNet1.pth", weights_only=False)
     model.to(device)
     model.eval()
@@ -85,7 +84,7 @@ def main():
     for d in range(num_classes):
         rec = most_confusing[d]
         if rec["image"] is not None:
-            img = rec["image"]  # (1,1,32,32)
+            img = rec["image"]  
             fname = f"most_confusing_lenet1/true_{d}_pred_{rec['pred']}.png"
             save_image(img, fname)
             print(

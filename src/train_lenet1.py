@@ -19,7 +19,7 @@ def map_loss(outputs, labels, j=0.1):
     """
     B, num_classes = outputs.shape
 
-    # y_D: penalty of the correct class
+    # penalty of the correct class
     y_correct = outputs[torch.arange(B), labels]  # (B,)
 
     # penalties of incorrect classes
@@ -42,7 +42,7 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print("Using device:", device)
 
-    # 28x28 -> 32x32 padding (right + bottom, 2 pixels each)
+    # 28x28 -> 32x32 padding
     pad = torchvision.transforms.Pad(2, fill=0, padding_mode="constant")
 
     mnist_train = mnist.MNIST(split="train", transform=pad)
@@ -51,14 +51,14 @@ def main():
     train_loader = DataLoader(mnist_train, batch_size=1, shuffle=True)
     test_loader = DataLoader(mnist_test, batch_size=1, shuffle=False)
 
-    # --- Build RBF prototypes from DIGIT ---
+    # Build RBF prototypes from DIGIT 
     print("Building RBF prototypes from DIGIT data...")
     prototypes = build_digit_prototypes_from_digit()  # (10,84)
     print("Prototypes shape:", prototypes.shape)
 
     model = LeNet5RBF(prototypes).to(device)
 
-    lr = 0.001  # steepest gradient method with c ≈ 0.001
+    lr = 0.001  # c ≈ 0.001
     optimizer = torch.optim.SGD(model.parameters(), lr=lr)
 
     num_epochs = 20
@@ -66,7 +66,6 @@ def main():
     test_err_history = []
 
     for epoch in range(1, num_epochs + 1):
-        # ---------- Train ----------
         model.train()
         train_correct = 0
         train_total = 0
@@ -76,7 +75,7 @@ def main():
             labels = labels.to(device)
 
             optimizer.zero_grad()
-            outputs = model(images)               # (1,10)
+            outputs = model(images)               
             loss = map_loss(outputs, labels, j=0.1)
             loss.backward()
             optimizer.step()

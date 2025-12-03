@@ -17,7 +17,7 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print("Using device:", device)
 
-    # ---- Transforms ----
+    # Transforms 
     # Always pad MNIST 28x28 -> 32x32 to match LeNet
     pad = torchvision.transforms.Pad(2, fill=0, padding_mode="constant")
 
